@@ -27,15 +27,15 @@ const userSchema = new Schema(
         },
 
         thoughts: [{
-           // _id: require('mongodb').ObjectId,
+           // _id: require('mongodb').ObjectId,may use this one instead of below.both are same
            _id: Schema.Types.ObjectId,
-           ref: thoughts
+           ref: 'Thoughts'
 
         }],
 
         friends: [{
             _id: Schema.Types.ObjectId,
-            ref: Users 
+            ref: 'Users' 
         }]
     },
 
@@ -50,21 +50,24 @@ const userSchema = new Schema(
             },
     id: false
    },
+
    userSchema.virtual('friendCount')
    .get(function() {
        return this.friends.length;
    })
+)//userSchema 
 
-    //Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.    
-    //virtuals means create a new field in the model ,but it does not store in the table like virtual memory.
-    //here friendCount is the virtual field name
-    //.get() function is a getter method for the virtual property "friendCount
-    //the getter function returns the length of the "friends" array.
-    //this.friends refers to the "friends" field of the current document instance
+
+   
+
+//Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.    
+ //virtuals means create a new field in the model ,but it does not store in the table like virtual memory. //here friendCount is the virtual field name
+//.get() function is a getter method for the virtual property "friendCount//the getter function returns the length of the "friends" array.
+//this.friends refers to the "friends" field of the current document instance
 
     
    
-)
+
 //design Usermodel using userSchema here User is the one of model name mentioned under the folder model
 //Here variable Users used to assigned to the model, then you should export it as module.exports = Users 
 //monogodb internally convert the model name to firstletter uppercase and plural Users
