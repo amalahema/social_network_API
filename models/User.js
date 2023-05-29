@@ -1,6 +1,6 @@
 
 // {} object destructuring in JavaScript that allows you to extract specific properties (in this case, Schema and model) from the mongoose module and assign them to variables with the same names
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 
 //schema name userSchema represents the structure of the database,relationships, and constraints.
