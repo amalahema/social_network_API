@@ -17,7 +17,17 @@ const userSchema = new Schema(
          type: String,
          required: true,
          unique: true,
-         trim: true
+         trim: true,
+         //inside validate property there is other 2 properties named validator and message
+         //v parameter passed to the regex test method to check the email format
+         validate: {
+            validator: function (v)
+            {
+                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v)
+            },
+            //props.value allows you to access and use the value of the field being validated in the validation error message.
+            message: props => `${props.value} is not a valid email address`
+         }
         },
 
         email: {
