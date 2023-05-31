@@ -24,10 +24,11 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 
 ## Screenshot
-![display the page](./Assets/update.PNG)
+![display the page](./assets/update.PNG)
 
 ### Links
-Github URL:  https://github.com/amalahema/
+Github URL:  https://github.com/amalahema/social_network_API
+
 
 ### Code Construction
 - mongoose, Schema and model
@@ -45,4 +46,7 @@ Github URL:  https://github.com/amalahema/
 - How to use try and catch method
 
 Walkthrough Video:
+
+https://app.screencastify.com/manage/videos/LEE9HP7VCqa9kQDLo0sY
+
 
