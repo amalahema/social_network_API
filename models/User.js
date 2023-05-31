@@ -1,87 +1,50 @@
-
-// {} object destructuring in JavaScript that allows you to extract specific properties (in this case, Schema and model) from the mongoose module and assign them to variables with the same names
 const { Schema, model } = require('mongoose');
 
 
-//schema name userSchema represents the structure of the database,relationships, and constraints.
 const userSchema = new Schema(
-    {
-        //model name is User
-        // represents the data and the behavior associated with it.
-        //username,email,thoughts,friends are the field name 
-
-
-        username:
-        {
-            // properties that can be used in a schema to define the characteristics of a field.
-         type: String,
-         required: true,
-         unique: true,
-         trim: true,
-         //inside validate property there is other 2 properties named validator and message
-         //v parameter passed to the regex test method to check the email format
-         validate: {
-            validator: function (v)
-            {
-                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v)
-            },
-            //props.value allows you to access and use the value of the field being validated in the validation error message.
-            message: props => `${props.value} is not a valid email address`
-         }
-        },
-
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-
-        thoughts: [{
-           // _id: require('mongodb').ObjectId,may use this one instead of below.both are same
-           _id: Schema.Types.ObjectId,
-           ref: 'Thoughts'
-
-        }],
-
-        friends: [{
-            _id: Schema.Types.ObjectId,
-            ref: 'Users' 
-        }]
+{
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
     },
-
-    //toJSON option allows you to define the behavior of the document when it is converted to JSON.
-    //virtual properties and getter functions defined true so the field value are manipulated  before they return 
-    //id set false to exclude monogodb id display with json docuements
-    {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+\@.+\..+/, 'Please enter a valid email address'], // note between [] is from internet source
+    },
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought'
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      },
+    ],
+},
+{
     toJSON: {
-          virtuals: true,
-          getters: true
-
-            },
-    id: false
-   },
-
-   userSchema.virtual('friendCount')
-   .get(function() {
-       return this.friends.length;
-   })
-)//userSchema 
+      virtuals: true,
+    },
+      id: false,
+}
+);
 
 
-   
+userSchema
+  .virtual('friendCount')
+ 
+  .get(function () {
+    return this.friends.length;
+  });
 
-//Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.    
- //virtuals means create a new field in the model ,but it does not store in the table like virtual memory. //here friendCount is the virtual field name
-//.get() function is a getter method for the virtual property "friendCount//the getter function returns the length of the "friends" array.
-//this.friends refers to the "friends" field of the current document instance
 
-    
-   
+const User = model('User', userSchema);
 
-//design Usermodel using userSchema here User is the one of model name mentioned under the folder model
-//Here variable Users used to assigned to the model, then you should export it as module.exports = Users 
-//monogodb internally convert the model name to firstletter uppercase and plural Users
-const Users = model('User' , userSchema);
-
-//export the module
-module.exports = Users;
+module.exports = User;

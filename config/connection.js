@@ -1,4 +1,4 @@
-// import the functionality to varaiable through require buld in function
+
 const mongoose = require('mongoose');
 
 //connect mongoose with the mongodb in your system
