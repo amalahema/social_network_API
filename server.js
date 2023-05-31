@@ -1,19 +1,16 @@
-//pass the functioality of express to the variable through require bulid in function in nodejs
 const express = require('express');
-
-//get the details of database through mongoose connection object from the config file 
 const db = require('./config/connection');
-const { urlencoded } = require('body-parser');
+const routes = require('./routes');
 
-//require model
+const PORT = process.env.PORT || 3001;
+const app = express();
 
-//port determines the port on which server listens
-const PORT = process.env.PORT|| 3001;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-//app defines the server behavior
-const app = (express());
-
-//html user  data format paresd to js objest
-app.use(express.urlencoded({extended: true}));
-//js object json and amle it available in req.body
-app.use(express.json);
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
+});
