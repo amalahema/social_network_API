@@ -47,6 +47,7 @@ Github URL:  https://github.com/amalahema/social_network_API
 
 Walkthrough Video:
 
-https://app.screencastify.com/manage/videos/LEE9HP7VCqa9kQDLo0sY
+https://drive.google.com/file/d/13CSoqO6cio0PWk9BRHRjxjG6LAN7dw_d/view
+
 
 
